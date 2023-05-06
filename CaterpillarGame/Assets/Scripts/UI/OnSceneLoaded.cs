@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class OnSceneLoaded : MonoBehaviour
 {
     bool _checkDone = false;
-    [SerializeField]AudioSource _audioSource;
+    [SerializeField] AudioSource _gothMothSound;
+    [SerializeField] AudioSource _music;
 
     private void Update()
     {
@@ -16,7 +17,8 @@ public class OnSceneLoaded : MonoBehaviour
 
     private void Start()
     {
-        _audioSource.PlayDelayed(1.5f);
+        _gothMothSound.PlayDelayed(.7f);
+        _music.PlayDelayed(2f);
     }
 
     private void OnEnable()
