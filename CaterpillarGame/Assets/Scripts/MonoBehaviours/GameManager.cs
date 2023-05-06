@@ -10,4 +10,10 @@ public class GameManager : MonoBehaviour
         ServiceLocator.Instance.Register<ConsumableSpawningService>(new ConsumableSpawningService());
     }
 
+    public void Start()
+    {
+        ConsumableSpawningService consumableSpawningService = new ConsumableSpawningService();
+        StartCoroutine(consumableSpawningService.ReplenishConsumablesCoroutine());
+    }
+
 }

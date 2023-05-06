@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ConsumerService : IGameService
 {
+    private ConsumableSpawnpoint _lastConsumedSpawnpoint;
+
     public void ConsumeItem(IConsumable consumable, IConsumer consumer)
     {
         Rigidbody rigidBody = consumer.GetRigidbody();
@@ -17,12 +19,24 @@ public class ConsumerService : IGameService
 
         float massRegen = consumable.GetMassRegen();
 
-        // play effect
+        // play effects here
+
         consumer.SetWeight(rigidBody.mass += massRegen);
 
         ConsumabilityService consumabilityService = ServiceLocator.Instance.Get<ConsumabilityService>();
         consumabilityService.Deregister(consumable);
         consumabilityService.UpdateConsumability(rigidBody, consumerMass);
+
+        ConsumableSpawnpoint consumableSpawnpoint = consumable.GetSpawnpoint();
+        consumableSpawnpoint.SetConsumable(null);
+        _lastConsumedSpawnpoint = consumableSpawnpoint;
+
+
         consumable.Destroy();
+    }
+
+    public ConsumableSpawnpoint GetLastConsumedSpawnpoint()
+    {
+        return _lastConsumedSpawnpoint;
     }
 }
