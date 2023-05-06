@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerCharacter : MonoBehaviour, IConsumer
 {
     [SerializeField] private Rigidbody _rigidbody;
@@ -14,12 +15,10 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private IEnumerator _massChangeCoroutine;
     private MassChanger _massChanger;
 
-    const float METAMORPHOSIS_THRESHOLD_WEIGHT = 60;
-    [SerializeField] private CharacterController controller;
-    [SerializeField] private Transform cam;
+    [SerializeField] private CharacterController _controller;
+    [SerializeField] private Transform _camera;
     [SerializeField] private CinemachineFreeLook freeLookVirtualCam;
 
-    private IEnumerator enableCamRepositioning;
     private bool _axisRecenteringEnableCoroutineRunning;
 
     [SerializeField] private float _speed = 6f;
@@ -38,24 +37,22 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private float turnSmoothVelocity;
     [SerializeField] private float turnSmoothTime = 0.1f;
 
+    const float METAMORPHOSIS_THRESHOLD_WEIGHT = 60;
+
+    public PlayerState State { get; private set; }
+
+    private void Awake()
+    {
+        State = PlayerState.CaterPillar;
+    }
+
     private void Update()
     {
-        //jump
-        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (_isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
-        if (Input.GetButtonDown("Jump") && _isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
-        }
+        HandleJumpInput();
 
         //gravity
         velocity.y += _gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        _controller.Move(velocity * Time.deltaTime);
 
         HandleMovementInput();
     }
@@ -64,16 +61,6 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     {
         _massChanger = new MassChanger(this);
         _massChangeCoroutine = _massChanger.MassChangeCoroutine();
-    }
-
-    private void StartMassChangeCoroutine(IEnumerator _massChangeCoroutine)
-    {
-        StartCoroutine(_massChangeCoroutine);
-    }
-
-    private void StopMassChangeCoroutine()
-    {
-        StopCoroutine(_massChangeCoroutine);
     }
 
     public void SetWeight(float newWeight)
@@ -95,10 +82,12 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     private void BecomeButterfly()
     {
-        Debug.LogWarning("I became a butterfly!");
+        State = PlayerState.Butterfly;
 
-        _caterpillarMesh.gameObject.SetActive(false);
-        _butterflyMesh.gameObject.SetActive(true);
+        _caterpillarMesh.SetActive(false);
+        _butterflyMesh.SetActive(true);
+
+        StopCoroutine(_massChangeCoroutine);
     }
 
     public Rigidbody GetRigidbody()
@@ -110,9 +99,28 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     {
         return _light;
     }
+
+    private void HandleJumpInput()
+    {
+        if (State == PlayerState.Butterfly) return;
+
+        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (_isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
+        if (Input.GetButtonDown("Jump") && _isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
+        }
+    }
+
     private void HandleMovementInput()
     {
-        //walk
+        if (State == PlayerState.Butterfly) return;
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -121,12 +129,12 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         {
             freeLookVirtualCam.m_YAxisRecentering.m_enabled = false;
             freeLookVirtualCam.m_RecenterToTargetHeading.m_enabled = false;
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * _speed * Time.deltaTime);
+            _controller.Move(moveDir.normalized * _speed * Time.deltaTime);
 
             _delayReposition = true;
             StopCoroutine(AxisRecenteringEnableCoroutine());
@@ -161,7 +169,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
         if (_delayReposition)
         {
-            enableCamRepositioning = null;
+            _enableCamRepositioning = null;
             _axisRecenteringEnableCoroutineRunning = false;
             yield break;
         }
