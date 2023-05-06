@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 4960687245835117619}
   - component: {fileID: 4960687245835117618}
   - component: {fileID: 4960687245835117629}
-  - component: {fileID: 4960687245835117628}
   - component: {fileID: 4960687245835117616}
   - component: {fileID: 4960687245835117623}
   - component: {fileID: 4960687245835117622}
@@ -119,20 +118,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4960687245835117628
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4960687245835117631}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4960687245835117616
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,12 +166,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 4960687245835117623}
   cam: {fileID: 0}
+  freeLookVirtualCam: {fileID: 0}
   speed: 6
-  gravity: -9.81
+  gravity: -39.24
   jumpHeight: 3
-  isGrounded: 0
   groundCheck: {fileID: 4960687244581288096}
-  groundDistance: 0.4
+  groundDistance: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 8

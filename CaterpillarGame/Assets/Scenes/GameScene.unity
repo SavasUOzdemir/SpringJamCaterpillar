@@ -319,7 +319,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317113656}
-  m_LocalRotation: {x: 0.16793124, y: -0.000000008481013, z: 0.0000000014447445, w: 0.9857987}
+  m_LocalRotation: {x: 0.16793124, y: 0.000000008481014, z: -0.0000000014447447, w: 0.9857987}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -517,11 +517,11 @@ MonoBehaviour:
   m_SplineCurvature: 0.2
   m_Orbits:
   - m_Height: 14
-    m_Radius: 12
+    m_Radius: 17.8
   - m_Height: 5
     m_Radius: 11.5
   - m_Height: -0.23
-    m_Radius: 12
+    m_Radius: 9.4
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 716251043}
@@ -1228,6 +1228,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 963194228}
+    - target: {fileID: 4960687245835117622, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: freeLookVirtualCam
+      value: 
+      objectReference: {fileID: 550486134}
     - target: {fileID: 4960687245835117631, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: m_Name
       value: Player
