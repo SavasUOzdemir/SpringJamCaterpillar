@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonsScript : MonoBehaviour
 {
     GameObject _panelGameObject;
+
     private void Awake()
     {
         _panelGameObject = FindObjectOfType<Canvas>().transform.GetChild(0).gameObject;
@@ -15,24 +16,29 @@ public class ButtonsScript : MonoBehaviour
     {
         _panelGameObject.SetActive(false);
     }
+
     public void PlayButtonPress()
     {
         SceneManager.LoadScene(1);
     }
+
     public void QuitButtonPress()
     {
         Application.Quit();
     }
+
     public void ResumeButtonPressed()
     {
         Time.timeScale = 1;
         _panelGameObject.SetActive(false);
     }
+
     public void MainMenuButton()
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
+
     public void PauseMenuHandler()
     {
         if (!_panelGameObject.activeSelf)

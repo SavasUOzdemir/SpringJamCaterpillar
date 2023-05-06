@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +11,11 @@ public class ConsumableSpawnpointContainer : MonoBehaviour
         {
             _consumableSpawnpoints[i].Setup();
             _consumableSpawnpoints[i].Initialise();
-        }    
+        }   
+        
+        if(_consumableSpawnpoints.Count == 0)
+        {
+            Debug.LogWarning("There are no spawn points registered. Make sure they are added to the list in the Unity Editor");
+        }
     }
 }

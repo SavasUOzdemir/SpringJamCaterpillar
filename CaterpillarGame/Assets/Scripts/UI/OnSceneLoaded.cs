@@ -13,10 +13,12 @@ public class OnSceneLoaded : MonoBehaviour
         if (!_checkDone)
             OnSceneLoadedMethod(gameObject.scene,LoadSceneMode.Single);
     }
+
     private void Start()
     {
         _audioSource.PlayDelayed(1.5f);
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoadedMethod;
