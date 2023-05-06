@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!143 &31615692 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 4960687245835117623, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
-  m_PrefabInstance: {fileID: 4960687245596682954}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &75806531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -922,21 +917,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 963194228}
-    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
-      propertyPath: _cam
-      value: 
-      objectReference: {fileID: 963194228}
-    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 963194228}
-    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
-      propertyPath: _controller
-      value: 
-      objectReference: {fileID: 31615692}
     - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: freeLookVirtualCam
       value: 

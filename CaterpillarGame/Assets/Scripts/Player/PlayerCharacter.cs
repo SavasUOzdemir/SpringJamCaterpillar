@@ -1,6 +1,5 @@
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -169,7 +168,6 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
         if (_delayReposition)
         {
-            _enableCamRepositioning = null;
             _axisRecenteringEnableCoroutineRunning = false;
             yield break;
         }

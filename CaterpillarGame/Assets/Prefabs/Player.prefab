@@ -325,8 +325,8 @@ MonoBehaviour:
   _light: {fileID: 1713816916}
   _caterpillarMesh: {fileID: 716814392733589508}
   _butterflyMesh: {fileID: 7169545116777824824}
-  controller: {fileID: 4960687245835117623}
-  cam: {fileID: 0}
+  _controller: {fileID: 4960687245835117623}
+  _camera: {fileID: 0}
   freeLookVirtualCam: {fileID: 0}
   _speed: 6
   _gravity: -9.81
