@@ -948,6 +948,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3746289515096959997, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.05730952
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289515096959997, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -9.520507
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289515138470333, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.05730952
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289515138470333, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -9.520507
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289516022822105, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.y
+      value: 0.05730952
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289516022822105, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_FollowOffset.z
+      value: -9.520507
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289516669460728, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_YAxisRecentering.m_enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746289516669460728, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
+      propertyPath: m_RecenterToTargetHeading.m_enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3746289516669460729, guid: 443ef7f714d995e4ba04d39287e1563a, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -47,6 +47,8 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     private void Update()
     {
+        if (OnCanvasEnableDisable._GamePaused)
+            return;
         HandleJumpInput();
 
         //gravity
