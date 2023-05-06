@@ -4,27 +4,33 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float _DangerMeter { get; private set; }
+    public float _DangerMeter  { get; private set; }
     public bool _InDangerZone { get; set; }
-    [SerializeField] private float _waitSeconds = 1;
-    [SerializeField] private float _dangerZoneTickingDamage;
+    [SerializeField] private float _waitSeconds = 1f;
+    [SerializeField] private float _dangerZoneTickingDamage = -5f;
+    [SerializeField] private float _safeZoneTickingHeal = 2.5f;
     private Coroutine _tickingCoroutineReference;
 
     const string SAFEZONETAG = "SafeZone";
     public void DangerMeterChange(float dangermeterchange)
     {
         _DangerMeter += dangermeterchange;
-        return;
+        if (_DangerMeter <= 0.05f)
+            Die();
+        else return;
     }
 
     private void Start()
     {
+        _DangerMeter = 100f;
         _tickingCoroutineReference = StartCoroutine(DamageTick());
     }
 
     private void Die()
     {
-
+        //some logic for antagonist to lock onto target and swoop in
+        //animator.play("die");
+        StartCoroutine(DeathTimer(3f));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,5 +65,15 @@ public class PlayerStats : MonoBehaviour
             yield return new WaitForSeconds(_waitSeconds);
             DangerMeterChange(_dangerZoneTickingDamage);
         }
+    }
+
+    IEnumerator DeathTimer (float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Time.timeScale = 0f;
+        Destroy(gameObject);
+        //some logic to popup a death UI indicator
+        yield break;
     }
 }
