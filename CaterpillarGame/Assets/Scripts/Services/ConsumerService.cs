@@ -36,6 +36,12 @@ public class ConsumabilityService : IGameService
 
     private Dictionary<float, List<IConsumable>> _consumablesByLevel = new Dictionary<float, List<IConsumable>>();
 
+    public ConsumabilityService()
+    {
+        _consumablesByLevel.Add(MassThreshold2, new List<IConsumable>());
+        _consumablesByLevel.Add(MassThreshold3, new List<IConsumable>());
+    }
+
     public void Register(IConsumable consumable)
     {
         float requiredMass = consumable.GetRequiredMassForConsumableType();

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Consumables
+  m_EditorClassIdentifier: 
+  m_GroupName: Consumables
+  m_Data:
+    m_SerializedData: []
+  m_GUID: f5b88fddcc1ce504c8bff3a404a34abd
+  m_SerializeEntries:
+  - m_GUID: 4bf255e54a47ac64bb6282228dd21297
+    m_Address: Consumables/Leaf.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 33c47c8750655e24588621d03d473873
+    m_Address: Consumables/Catkin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0c6f46444bd536846bc0fb7012627fa2
+    m_Address: Consumables/Apple.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 98e4d1109a155df4abe01deb57cf02ef, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 2f1067ae59f74074b84546a0883b3568, type: 2}
+    - {fileID: 11400000, guid: fa9e8eb4e093cbd4eac2f20cebb09641, type: 2}
