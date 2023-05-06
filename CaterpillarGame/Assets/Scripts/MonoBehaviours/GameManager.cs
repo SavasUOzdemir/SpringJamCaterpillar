@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     {
         ServiceLocator.Setup();
         ServiceLocator.Instance.Register<ConsumerService>(new ConsumerService());
+        ServiceLocator.Instance.Register<ConsumabilityService>(new ConsumabilityService());
     }
 
     void Update()

@@ -36,7 +36,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private float turnSmoothVelocity;
     [SerializeField] private float turnSmoothTime = 0.1f;
 
-    const float METAMORPHOSIS_THRESHOLD_WEIGHT = 60;
+    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 60;
 
     public PlayerState State { get; private set; }
 
