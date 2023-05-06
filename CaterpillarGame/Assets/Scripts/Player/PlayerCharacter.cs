@@ -6,27 +6,31 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Light _light;
-    private IEnumerator _myCoroutine;
+
+    [SerializeField] private GameObject _caterpillarMesh;
+    [SerializeField] private GameObject _butterflyMesh;
+    
+    private IEnumerator _massChangeCoroutine;
     private MassChanger _massChanger;
 
-    const float _metamorphosisThresholdWeight = 40;
+    const float METAMORPHOSIS_THRESHOLD_WEIGHT = 40;
 
     public void Start()
     {
         _massChanger = new MassChanger(this);
-        _myCoroutine = _massChanger.MassChangeCoroutine();
+        _massChangeCoroutine = _massChanger.MassChangeCoroutine();
 
         StartMassChangeCoroutine();
     }
 
     private void StartMassChangeCoroutine()
     {
-        StartCoroutine(_myCoroutine);
+        StartCoroutine(_massChangeCoroutine);
     }
 
     public void SetWeight(float newWeight)
     {
-        if(newWeight > _metamorphosisThresholdWeight)
+        if(newWeight > METAMORPHOSIS_THRESHOLD_WEIGHT)
         {
             BecomeButterfly();
         }
@@ -39,6 +43,9 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private void BecomeButterfly()
     {
         Debug.LogWarning("I became a butterfly!");
+
+        _caterpillarMesh.gameObject.SetActive(false);
+        _butterflyMesh.gameObject.SetActive(true);
     }
 
     public Rigidbody GetRigidbody()
