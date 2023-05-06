@@ -4,28 +4,28 @@ using System.Collections;
 
 public class ControllerScript : MonoBehaviour
 {
-    [SerializeField] CharacterController controller;
-    [SerializeField] Transform cam;
-    [SerializeField] CinemachineFreeLook freeLookVirtualCam;
-    Coroutine enableCamRepositioning;
+    [SerializeField] private CharacterController controller;
+    [SerializeField] private Transform cam;
+    [SerializeField] private CinemachineFreeLook freeLookVirtualCam;
+    private Coroutine enableCamRepositioning;
 
-    [SerializeField] float speed = 6;
-    [SerializeField] float gravity = -9.81f;
-    [SerializeField] float jumpHeight = 3;
-    [SerializeField] float waitBeforeCameraReset = 5f;
-    Vector3 velocity;
-    bool isGrounded;
-    bool delayReposition;
-    bool coroutineRunning;
+    [SerializeField] private float speed = 6f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float waitBeforeCameraReset = 5f;
+    private Vector3 velocity;
 
-    [SerializeField] Transform groundCheck;
-    [SerializeField] float groundDistance = 0.4f;
-    [SerializeField] LayerMask groundMask;
+    private bool isGrounded;
+    private bool delayReposition;
+    private bool coroutineRunning;
 
-    float turnSmoothVelocity;
-    [SerializeField] float turnSmoothTime = 0.1f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
-    // Update is called once per frame
+    private float turnSmoothVelocity;
+    [SerializeField] private float turnSmoothTime = 0.1f;
+
     void Update()
     {
         //jump
@@ -40,9 +40,11 @@ public class ControllerScript : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
         }
+
         //gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
         //walk
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");

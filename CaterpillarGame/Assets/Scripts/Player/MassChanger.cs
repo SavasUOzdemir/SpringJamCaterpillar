@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MassChanger : MonoBehaviour
+public class MassChanger : MonoBehaviour, IConsumer
 {
-    Rigidbody rb;
-    [SerializeField] float massReductionFactor = 5;
-    [SerializeField] Light _light;
+    private Rigidbody rb;
+    [SerializeField] private float massReductionFactor = 5;
+    [SerializeField] private Light _light;
 
     const float LIGHT_MAX = 2.1f;
     const float LIGHT_MIN = 0.5f;
     const float SCALE_MAX = 1.5f;
     const float SCALE_MIN = 0.6f;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
+
     void Start()
     {
         MassChangeCoroutineStarter();
@@ -31,6 +33,7 @@ public class MassChanger : MonoBehaviour
         while (rb.mass >= 1)
         {
             yield return new WaitForFixedUpdate();
+
             rb.mass -= Time.fixedDeltaTime/ massReductionFactor;
             DoScaleCalculation(rb.mass);
             DoLightIntensityCalculation(rb.mass);
@@ -46,10 +49,16 @@ public class MassChanger : MonoBehaviour
         float scaleFactor = (Mathf.Clamp(targetScale, SCALE_MIN, SCALE_MAX));
         transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
     }
+
     void DoLightIntensityCalculation(float mass)
     {
         float targetIntensity = mass / 10f < LIGHT_MAX ? mass/10f: LIGHT_MAX;
         float clampedIntensity = Mathf.Clamp(targetIntensity, LIGHT_MIN, LIGHT_MAX);
         _light.intensity = clampedIntensity;
+    }
+
+    public Rigidbody GetRigidbody()
+    {
+        return rb;
     }
 }
