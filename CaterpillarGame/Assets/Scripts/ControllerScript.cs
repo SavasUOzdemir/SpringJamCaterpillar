@@ -12,6 +12,7 @@ public class ControllerScript : MonoBehaviour
     [SerializeField] float speed = 6;
     [SerializeField] float gravity = -9.81f;
     [SerializeField] float jumpHeight = 3;
+    [SerializeField] float waitBeforeCameraReset = 5f;
     Vector3 velocity;
     bool isGrounded;
     bool delayReposition;
@@ -72,7 +73,7 @@ public class ControllerScript : MonoBehaviour
     IEnumerator EnableAxisRecentering()
     {
         coroutineRunning = true;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(waitBeforeCameraReset);
         if (delayReposition)
         {
             enableCamRepositioning = null;
