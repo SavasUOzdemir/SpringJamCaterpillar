@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,8 +10,4 @@ public class GameManager : MonoBehaviour
         ServiceLocator.Instance.Register<ConsumableSpawningService>(new ConsumableSpawningService());
     }
 
-    void Update()
-    {
-        
-    }
 }

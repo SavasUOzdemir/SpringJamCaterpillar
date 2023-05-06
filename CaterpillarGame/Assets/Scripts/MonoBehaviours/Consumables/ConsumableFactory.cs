@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -11,7 +10,7 @@ public class ConsumableFactory
     public static void Create(ConsumableSpawnpoint consumableSpawnpoint, ConsumableType consumableType)
     {
         AssetReferenceGameObject prefabReference = GetPrefab(consumableType);
-        Debug.Log($"TRANSFORM {consumableSpawnpoint.transform.gameObject.name}");
+
         AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync(prefabReference, consumableSpawnpoint.transform);
         
         handle.Completed += (o) =>

@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 1
 --- !u!1 &250780478
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 1
 --- !u!1 &287199736
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 0
 --- !u!1 &316213902
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 2
 --- !u!1 &1156306003
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 0
 --- !u!1 &1282966728
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 0
 --- !u!1 &1466255783
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,8 +846,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1466255785}
+  - component: {fileID: 1466255786}
   m_Layer: 0
-  m_Name: ConsumableSpawnpoints
+  m_Name: ConsumableSpawnpointContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -869,6 +876,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466255786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466255783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4678d15ab112c9408f9abbe1d62c69f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consumableSpawnpoints:
+  - {fileID: 1282966730}
+  - {fileID: 1157866240}
+  - {fileID: 1828752011}
+  - {fileID: 250780480}
+  - {fileID: 152050780}
+  - {fileID: 1117607627}
+  - {fileID: 287199738}
 --- !u!1 &1828752009
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,6 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30c13dd8318df9439b58bc0ff327c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defaultConsumableType: 0
 --- !u!1001 &3746289516119695502
 PrefabInstance:
   m_ObjectHideFlags: 0
