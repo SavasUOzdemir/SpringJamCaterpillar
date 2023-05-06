@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MassChanger
 {
-    private float massReductionFactor = 2;
+    private float massReductionFactor = 10;
 
     const float LIGHT_MAX = 2.1f;
     const float LIGHT_MIN = 0.5f;
@@ -12,6 +12,8 @@ public class MassChanger
 
     private PlayerCharacter _playerCharacter;
     private Rigidbody _rigidbody;
+
+    public bool IsCalculating = false;
 
     public MassChanger(PlayerCharacter playerCharacter)
     {
@@ -25,14 +27,13 @@ public class MassChanger
         {
             yield return new WaitForFixedUpdate();
 
-            _rigidbody.mass -= Time.fixedDeltaTime / massReductionFactor;
+            float newMass = _rigidbody.mass - Time.fixedDeltaTime / massReductionFactor;
+            _playerCharacter.SetWeight(newMass);
             DoScaleCalculation();
             DoLightIntensityCalculation();
 
         }
-        if (_rigidbody.mass < 1)
-            _rigidbody.mass = 1;
-    }
+    }   
 
     private void DoScaleCalculation()
     {

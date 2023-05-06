@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!143 &31615692 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 4960687245835117623, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+  m_PrefabInstance: {fileID: 4960687245596682954}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &75806531
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -748,9 +753,9 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 716814392733589508, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
   m_PrefabInstance: {fileID: 4960687245596682954}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1862113199 stripped
+--- !u!4 &2038575481 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8572423064847196112, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4960687244581288096, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
   m_PrefabInstance: {fileID: 4960687245596682954}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2080220689
@@ -932,6 +937,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 963194228}
+    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 31615692}
+    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 2038575481}
+    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: _butterflyMesh
       value: 
       objectReference: {fileID: 506516187}
@@ -939,6 +956,10 @@ PrefabInstance:
       propertyPath: _caterpillarMesh
       value: 
       objectReference: {fileID: 1862113198}
+    - target: {fileID: 31615697, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: freeLookVirtualCam
+      value: 
+      objectReference: {fileID: 550486134}
     - target: {fileID: 4960687245835117619, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -986,7 +1007,7 @@ PrefabInstance:
     - target: {fileID: 4960687245835117622, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 1862113199}
+      objectReference: {fileID: 963194228}
     - target: {fileID: 4960687245835117622, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
       propertyPath: freeLookVirtualCam
       value: 
@@ -995,5 +1016,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4960687245835117622, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
