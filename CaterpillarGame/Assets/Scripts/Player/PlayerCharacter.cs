@@ -180,6 +180,14 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         yield return null;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PhysicsInteractable"))
+        {
+            Debug.Log(-Vector3.up * _rigidbody.mass);
+            collision.rigidbody.AddForceAtPosition(-Vector3.up * _rigidbody.mass / 100, groundCheck.position - Vector3.one * .2f);
+        }
+    }
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("PhysicsInteractable")) 
