@@ -8,9 +8,7 @@ public class ConsumerService : IGameService
         Rigidbody rb = consumer.GetRigidbody();
         float massRegen = consumable.GetMassRegen();
 
-        if ((rb.mass + massRegen) > 30)
-            rb.mass = 30f;
-        else
-            rb.mass += massRegen;
+        // play effect
+        consumer.SetWeight(rb.mass += massRegen); 
     }
 }

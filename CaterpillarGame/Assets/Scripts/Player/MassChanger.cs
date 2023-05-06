@@ -1,64 +1,53 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MassChanger : MonoBehaviour, IConsumer
+public class MassChanger
 {
-    private Rigidbody rb;
-    [SerializeField] private float massReductionFactor = 5;
-    [SerializeField] private Light _light;
+    private float massReductionFactor = 2;
 
     const float LIGHT_MAX = 2.1f;
     const float LIGHT_MIN = 0.5f;
     const float SCALE_MAX = 1.5f;
     const float SCALE_MIN = 0.6f;
 
-    private void Awake()
+    private PlayerCharacter _playerCharacter;
+    private Rigidbody _rigidbody;
+
+    public MassChanger(PlayerCharacter playerCharacter)
     {
-        rb = GetComponent<Rigidbody>();
+        _playerCharacter = playerCharacter;
+        _rigidbody = playerCharacter.GetRigidbody();
     }
 
-    void Start()
+    public IEnumerator MassChangeCoroutine()
     {
-        MassChangeCoroutineStarter();
-    }
-
-    void MassChangeCoroutineStarter()
-    {
-        StartCoroutine(MassChangeCoroutine());
-    }
-
-    IEnumerator MassChangeCoroutine()
-    {
-        while (rb.mass >= 1)
+        while (_rigidbody.mass >= 1)
         {
             yield return new WaitForFixedUpdate();
 
-            rb.mass -= Time.fixedDeltaTime/ massReductionFactor;
-            DoScaleCalculation(rb.mass);
-            DoLightIntensityCalculation(rb.mass);
+            _rigidbody.mass -= Time.fixedDeltaTime / massReductionFactor;
+            DoScaleCalculation();
+            DoLightIntensityCalculation();
 
         }
-        if (rb.mass < 1)
-            rb.mass = 1;
+        if (_rigidbody.mass < 1)
+            _rigidbody.mass = 1;
     }
 
-    void DoScaleCalculation(float mass)
+    private void DoScaleCalculation()
     {
-        float targetScale = rb.mass / 30f > SCALE_MIN ? rb.mass / 30 : SCALE_MIN;
+        float targetScale = _rigidbody.mass / 30f > SCALE_MIN ? _rigidbody.mass / 30 : SCALE_MIN;
         float scaleFactor = (Mathf.Clamp(targetScale, SCALE_MIN, SCALE_MAX));
-        transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        _playerCharacter.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
     }
 
-    void DoLightIntensityCalculation(float mass)
+    private void DoLightIntensityCalculation()
     {
+        float mass = _rigidbody.mass;
+        Light light = _playerCharacter.GetLight();
+
         float targetIntensity = mass / 10f < LIGHT_MAX ? mass/10f: LIGHT_MAX;
         float clampedIntensity = Mathf.Clamp(targetIntensity, LIGHT_MIN, LIGHT_MAX);
-        _light.intensity = clampedIntensity;
-    }
-
-    public Rigidbody GetRigidbody()
-    {
-        return rb;
+        light.intensity = clampedIntensity;
     }
 }
