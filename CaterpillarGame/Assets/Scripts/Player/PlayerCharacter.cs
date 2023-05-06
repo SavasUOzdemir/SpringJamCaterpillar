@@ -24,7 +24,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     [SerializeField] private float _gravity = -9.81f;
     [SerializeField] private float _jumpHeight = 3f;
     [SerializeField] private float _waitBeforeCameraReset = 5f;
-    private Vector3 velocity;
+    private Vector3 _velocity;
 
     private bool _isGrounded;
     private bool _delayReposition;
@@ -50,8 +50,8 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         HandleJumpInput();
 
         //gravity
-        velocity.y += _gravity * Time.deltaTime;
-        _controller.Move(velocity * Time.deltaTime);
+        _velocity.y += _gravity * Time.deltaTime;
+        _controller.Move(_velocity * Time.deltaTime);
 
         HandleMovementInput();
     }
@@ -105,14 +105,14 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
         _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (_isGrounded && velocity.y < 0)
+        if (_isGrounded && _velocity.y < 0)
         {
-            velocity.y = -2f;
+            _velocity.y = -4f;
         }
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
+            _velocity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
         }
     }
 
@@ -176,5 +176,14 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         freeLookVirtualCam.m_RecenterToTargetHeading.m_enabled = true;
         _axisRecenteringEnableCoroutineRunning = false;
         yield return null;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("PhysicsInteractable")) 
+        {
+            Debug.Log(-Vector3.up * _rigidbody.mass);
+            collision.rigidbody.AddForceAtPosition(-Vector3.up*_rigidbody.mass/100, groundCheck.position-Vector3.one*.2f);
+        }
     }
 }
