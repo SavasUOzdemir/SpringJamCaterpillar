@@ -31,6 +31,8 @@ public class ConsumableFactory
     {
         IConsumable consumable = handle.Result.GetComponent<IConsumable>();
         consumableSpawnpoint.SetConsumable(consumable);
+
+        consumable.Initialise(consumableSpawnpoint);
     }
 
     private static AssetReferenceGameObject GetPrefab(ConsumableType consumableType)

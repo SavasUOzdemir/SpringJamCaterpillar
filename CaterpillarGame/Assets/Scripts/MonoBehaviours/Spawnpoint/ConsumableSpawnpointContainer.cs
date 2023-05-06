@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ConsumableSpawnpointContainer : MonoBehaviour
 {
-    [SerializeField] private List<ConsumableSpawnpoint> consumableSpawnpoints;
+    [SerializeField] private List<ConsumableSpawnpoint> _consumableSpawnpoints;
 
     public void Start()
     {
-        for (int i = 0; i < consumableSpawnpoints.Count; i++)
+        for (int i = 0; i < _consumableSpawnpoints.Count; i++)
         {
-            consumableSpawnpoints[i].Setup();
-            consumableSpawnpoints[i].Initialise();
+            _consumableSpawnpoints[i].Setup();
+            _consumableSpawnpoints[i].Initialise();
         }    
     }
 }

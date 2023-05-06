@@ -8,9 +8,12 @@ public class ConsumableObject : MonoBehaviour, IConsumable
     [SerializeField] private ConsumableType _consumableType;
     [SerializeField] private Collider _collder;
     private ConsumabilityService _consumabilityService;
+    private ConsumableSpawnpoint _consumableSpawnpoint;
 
-    public void Start()
+    public void Initialise(ConsumableSpawnpoint consumableSpawnpoint)
     {
+        _consumableSpawnpoint = consumableSpawnpoint;
+
         _consumabilityService = ServiceLocator.Instance.Get<ConsumabilityService>();
         _consumabilityService.Register(this);
     }
@@ -37,6 +40,11 @@ public class ConsumableObject : MonoBehaviour, IConsumable
     public ConsumableType GetConsumableType()
     {
         return _consumableType;
+    }
+
+    public ConsumableSpawnpoint GetSpawnpoint()
+    {
+        return _consumableSpawnpoint;
     }
 
     public void SetIsTriggered(bool isTriggered)
