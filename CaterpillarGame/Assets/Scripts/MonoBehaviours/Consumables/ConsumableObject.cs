@@ -61,8 +61,10 @@ public class ConsumableObject : MonoBehaviour, IConsumable
                 return 1;
             case ConsumableType.Apple:
                 return _consumabilityService.MassThreshold2;
-            case ConsumableType.Catkin:
+            case ConsumableType.Honey:
                 return _consumabilityService.MassThreshold3;
+            case ConsumableType.Catkin:
+                return _consumabilityService.MassThreshold4;
             default:
                 Debug.LogWarning($"No implementation for type {_consumableType}. Return default");
                 return 1;

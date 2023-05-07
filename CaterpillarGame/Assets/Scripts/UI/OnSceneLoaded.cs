@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,7 +28,6 @@ public class OnSceneLoaded : MonoBehaviour
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoadedMethod;
-
     }
 
     private void OnSceneLoadedMethod(Scene scene, LoadSceneMode mode)

@@ -5,7 +5,8 @@ using UnityEngine;
 public class ConsumabilityService : IGameService
 {
     public float MassThreshold2 = 30;
-    public float MassThreshold3 = 45;
+    public float MassThreshold3 = 50;
+    public float MassThreshold4 = 100;
 
     private Dictionary<float, List<IConsumable>> _consumablesByLevel = new Dictionary<float, List<IConsumable>>();
 

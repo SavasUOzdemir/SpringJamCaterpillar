@@ -6,5 +6,6 @@ public enum ConsumableType
 {
     Leaf,
     Apple,
+    Honey,
     Catkin
 }
