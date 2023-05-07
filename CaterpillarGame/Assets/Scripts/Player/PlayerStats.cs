@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] public float _DangerMeter  { get; private set; }
+    [field:SerializeField] public float _DangerMeter  { get; private set; }
     public bool _InDangerZone { get; set; }
     [SerializeField] private float _waitSeconds = 1f;
     [SerializeField] private float _dangerZoneTickingDamage = -5f;
     [SerializeField] private float _safeZoneTickingHeal = 2.5f;
     private Coroutine _tickingCoroutineReference;
+    [SerializeField] GameObject _safeZonePlayer;
+    [SerializeField] Light _light;
+
 
     const string SAFEZONETAG = "SafeZone";
     const float MAXDANGERMETER = 200f;
@@ -23,10 +26,18 @@ public class PlayerStats : MonoBehaviour
         else return;
     }
 
+    private void FixedUpdate()
+    {
+        if (_light.intensity>=0.7f)
+            _safeZonePlayer.SetActive(true);
+        else
+            _safeZonePlayer.SetActive(false);
+
+    }
+
     private void Start()
     {
         _InDangerZone = true;
-        _DangerMeter = 100f;
         _tickingCoroutineReference = StartCoroutine(DamageTick());
     }
 
