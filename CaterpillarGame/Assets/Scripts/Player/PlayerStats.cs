@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public float _DangerMeter  { get; private set; }
+    [SerializeField]public float _DangerMeter  { get; private set; }
     public bool _InDangerZone { get; set; }
     [SerializeField] private float _waitSeconds = 1f;
     [SerializeField] private float _dangerZoneTickingDamage = -5f;
@@ -25,6 +25,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
+        _InDangerZone = true;
         _DangerMeter = 100f;
         _tickingCoroutineReference = StartCoroutine(DamageTick());
     }
@@ -33,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     {
         //some logic for antagonist to lock onto target and swoop in
         //animator.play("die");
-        StartCoroutine(DeathTimer(3f));
+        StartCoroutine(DeathTimer(.5f));
     }
 
     private void OnTriggerEnter(Collider other)
