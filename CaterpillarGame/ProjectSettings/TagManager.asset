@@ -6,6 +6,10 @@ TagManager:
   tags:
   - PhysicsInteractable
   - SafeZone
+  - lb_bird
+  - lb_groundTarget
+  - lb_perchTarget
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX
