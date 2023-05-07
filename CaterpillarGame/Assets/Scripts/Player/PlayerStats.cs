@@ -10,7 +10,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float _dangerZoneTickingDamage = -5f;
     [SerializeField] private float _safeZoneTickingHeal = 2.5f;
     private Coroutine _tickingCoroutineReference;
-
+    [SerializeField] private Light _light;
+    [SerializeField] GameObject safeZoneObject;
     const string SAFEZONETAG = "SafeZone";
     const float MAXDANGERMETER = 200f;
     public void DangerMeterChange(float dangermeterchange)
@@ -23,10 +24,17 @@ public class PlayerStats : MonoBehaviour
         else return;
     }
 
+    private void FixedUpdate()
+    {
+        if (_light.intensity > .7f)
+            safeZoneObject.SetActive(true);
+        else safeZoneObject.SetActive(false);
+    }
+
     private void Start()
     {
         _InDangerZone = true;
-        _DangerMeter = 100f;
+        _DangerMeter = 0f;
         _tickingCoroutineReference = StartCoroutine(DamageTick());
     }
 
