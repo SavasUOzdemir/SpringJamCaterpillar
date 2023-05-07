@@ -295,6 +295,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &207701096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8496457995462116562, guid: dd3b14bf280a2ea4bb2b7f6282a61dfa, type: 3}
+  m_PrefabInstance: {fileID: 8730248039443227477}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &250780478
 GameObject:
   m_ObjectHideFlags: 0
@@ -2661,6 +2666,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &1888574170
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207701096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -203984733284032044, guid: 38395f9dbac15334f9fafc27ac10f4be, type: 3}
 --- !u!1 &2003536569
 GameObject:
   m_ObjectHideFlags: 0
@@ -2904,6 +2923,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6271029956333341314, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271029956333341314, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271029956333341314, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169545116777824824, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572423064847196112, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e60fddd9fadfec0448855569bfa3199a, type: 3}
 --- !u!1001 &7573233155496410216
@@ -3074,6 +3113,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8496457995462116562, guid: dd3b14bf280a2ea4bb2b7f6282a61dfa, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8730248040041661868, guid: dd3b14bf280a2ea4bb2b7f6282a61dfa, type: 3}
       propertyPath: m_Name
       value: Tree
