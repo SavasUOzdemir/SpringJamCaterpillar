@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     {
         //some logic for antagonist to lock onto target and swoop in
         //animator.play("die");
-        StartCoroutine(DeathTimer(.5f));
+     //   StartCoroutine(DeathTimer(.5f));
     }
 
     private void OnTriggerEnter(Collider other)
