@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float _dangerZoneTickingDamage = -5f;
     [SerializeField] private float _safeZoneTickingHeal = 2.5f;
     private Coroutine _tickingCoroutineReference;
+    [SerializeField]lb_Bird_Game birdScript;
 
     const string SAFEZONETAG = "SafeZone";
     const float MAXDANGERMETER = 100f;
@@ -19,8 +20,10 @@ public class PlayerStats : MonoBehaviour
         if (_DangerMeter > MAXDANGERMETER)
             _DangerMeter = MAXDANGERMETER;
         if (_DangerMeter <= 0.05f)
-            Die();
-        else return;
+            birdScript.AggroToCharacter=true;
+        else
+            birdScript.AggroToCharacter=false;
+        return;
     }
 
     private void Start()
