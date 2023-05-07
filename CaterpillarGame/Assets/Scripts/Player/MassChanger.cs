@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MassChanger
 {
-    private float massReductionFactor = .2f;
+    private float massReductionFactor = 1f;
 
     const float LIGHT_MAX = 2.1f;
     const float LIGHT_MIN = 0.5f;

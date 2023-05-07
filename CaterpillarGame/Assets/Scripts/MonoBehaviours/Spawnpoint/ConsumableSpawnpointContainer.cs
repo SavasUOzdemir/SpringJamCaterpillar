@@ -5,6 +5,15 @@ public class ConsumableSpawnpointContainer : MonoBehaviour
 {
     [SerializeField] private List<ConsumableSpawnpoint> _consumableSpawnpoints;
 
+
+    private void Awake()
+    {
+        _consumableSpawnpoints.Clear();
+        foreach (var item in GetComponentsInChildren<ConsumableSpawnpoint>())
+        {
+            _consumableSpawnpoints.Add(item);
+        }
+    }
     public void Start()
     {
         for (int i = 0; i < _consumableSpawnpoints.Count; i++)
