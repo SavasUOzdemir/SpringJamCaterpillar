@@ -12,9 +12,12 @@ public class PlayerStats : MonoBehaviour
     private Coroutine _tickingCoroutineReference;
 
     const string SAFEZONETAG = "SafeZone";
+    const float MAXDANGERMETER = 100f;
     public void DangerMeterChange(float dangermeterchange)
     {
         _DangerMeter += dangermeterchange;
+        if (_DangerMeter > MAXDANGERMETER)
+            _DangerMeter = MAXDANGERMETER;
         if (_DangerMeter <= 0.05f)
             Die();
         else return;
@@ -61,6 +64,7 @@ public class PlayerStats : MonoBehaviour
             while (!_InDangerZone) 
             { 
                 yield return new WaitForSeconds(_waitSeconds);
+                DangerMeterChange(_safeZoneTickingHeal);
             }
             yield return new WaitForSeconds(_waitSeconds);
             DangerMeterChange(_dangerZoneTickingDamage);
