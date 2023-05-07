@@ -34,20 +34,31 @@ public class lb_Bird_Game : MonoBehaviour
 
 	private bool _aggroToCharacter;
 
-	public bool AggroToCharacter
-	{
-		get { return _aggroToCharacter; }
-		set
-		{
-			_aggroToCharacter = value;
-			if (_aggroToCharacter == true)
-				_patrolling = false;
-			else
-				_patrolling = true;
-		}
-	}
+	//public bool AggroToCharacter
+	//{
+	//	get { return _aggroToCharacter; }
+	//	set
+	//	{
+	//		_aggroToCharacter = value;
+	//		Debug.Log($"we want to change AggroToCharacter {_aggroToCharacter}");
+	//		//if (_aggroToCharacter == true)
+	//		//	_patrolling = false;
+	//		//else
+	//		//	_patrolling = true;
+	//	}
+	//}
 
 	private bool _patrolling = true;
+
+	public void SetAggroToCharacter(bool isAggro)
+	{
+		_aggroToCharacter = isAggro;
+	}
+
+	public bool GetAggroToCharacter()
+	{
+		return _aggroToCharacter;
+	}
 
 	IEnumerator AttackCoroutine(Vector3 target)
 	{
@@ -55,26 +66,31 @@ public class lb_Bird_Game : MonoBehaviour
 
 		_patrolling = false;
 		distanceToTarget = (playerTransform.position - transform.position).magnitude;
-		while (true)
-		{
-			distanceToTarget = (playerTransform.position - transform.position).magnitude;
-			transform.forward = (playerTransform.position - transform.position).normalized;
-			Debug.Log(distanceToTarget);
 
-			while (distanceToTarget>=10)
+		while (playerTransform != null)
+		{
+            distanceToTarget = (playerTransform.position - transform.position).magnitude;
+            transform.forward = (playerTransform.position - transform.position).normalized;
+			yield return null;
+
+			if (distanceToTarget >= 10)
             {
-				Debug.Log("buraya girdi");
-				transform.forward = (playerTransform.position - transform.position).normalized;
-				transform.position += transform.forward * _speed * Time.deltaTime;
-			}
-			if (distanceToTarget < 10f && AggroToCharacter)
-				playerTransform.gameObject.GetComponent<PlayerStats>().SendMessage("Die");
-			else
-			{
-				Patrol();
+                transform.forward = (playerTransform.position - transform.position).normalized;
+                transform.position += transform.forward * _speed * Time.deltaTime;
+            }
+
+            if (distanceToTarget < 10f && _aggroToCharacter)
+            {
+                playerTransform.gameObject.GetComponent<PlayerStats>().SendMessage("Die");
+				_aggroToCharacter = false;
 				yield break;
 			}
-		}
+            else
+            {
+               // Patrol();
+                yield break;
+            }
+        }
 
 	}
 
@@ -82,9 +98,14 @@ public class lb_Bird_Game : MonoBehaviour
 	{
 		Patrol();
 	}
+
 	void Attack()
 	{
-		Debug.Log("buraya girdi: attack");
+		if(playerTransform == null)
+        {
+			return;
+        }
+		//Debug.Log("buraya girdi: attack");
 
 		Vector3 target = playerTransform.position;
 		StartCoroutine(AttackCoroutine(target));
@@ -92,33 +113,35 @@ public class lb_Bird_Game : MonoBehaviour
 
 	private void Update()
 	{
-		if (!AggroToCharacter && _patrolling)
-		{
-			Patrol();
-		}
-		else
+        if (!_aggroToCharacter && _patrolling)
+        {
+            Patrol();
+        }
+        else
+        {
 			Attack();
+		}
 	}
+
 	void Patrol()
 	{
-		Debug.Log("Patrolling");
 		_patrolling = true;
 
-		if (AggroToCharacter)
+		if (_aggroToCharacter)
 		{
 			_patrolling = false;
 			return; 
 		}
 
 		if (Vector3.Distance(transform.position, patrolTargets[currentTargetIndex]) < 0.1f)
-		{
-			currentTargetIndex = (currentTargetIndex + 1) % patrolTargets.Length;
-		}
-		else
-		{
-			Vector3 direction = (patrolTargets[currentTargetIndex] - transform.position).normalized;
-			transform.position += direction * _speed * Time.deltaTime;
-			transform.forward = direction.normalized;
-		}
-	}
+        {
+            currentTargetIndex = (currentTargetIndex + 1) % patrolTargets.Length;
+        }
+        else
+        {
+            Vector3 direction = (patrolTargets[currentTargetIndex] - transform.position).normalized;
+            transform.position += direction * _speed * Time.deltaTime;
+            transform.forward = direction.normalized;
+        }
+    }
 }

@@ -192,7 +192,6 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     {
         if (collision.gameObject.CompareTag("PhysicsInteractable")) 
         {
-            Debug.Log(-Vector3.up * _rigidbody.mass);
             collision.rigidbody.AddForceAtPosition(-Vector3.up*_rigidbody.mass, groundCheck.transform.TransformPoint(groundCheck.transform.position) - Vector3.one * .2f);
         }
     }
