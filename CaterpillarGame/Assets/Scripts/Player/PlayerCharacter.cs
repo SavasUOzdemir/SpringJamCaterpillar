@@ -36,7 +36,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private float turnSmoothVelocity;
     [SerializeField] private float turnSmoothTime = 0.1f;
 
-    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 60;
+    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 70;
 
     public PlayerState State { get; private set; }
 
@@ -81,6 +81,11 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         }
     }
 
+    public void SetSpeed(float newSpeed)
+    {
+        _speed = newSpeed;
+    }
+
     private void BecomeButterfly()
     {
         State = PlayerState.Butterfly;
@@ -99,6 +104,11 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     public Light GetLight()
     {
         return _light;
+    }
+
+    public float GetSpeed()
+    {
+        return _speed;
     }
 
     private void HandleJumpInput()

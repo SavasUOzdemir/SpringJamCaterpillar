@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField]public float _DangerMeter  { get; private set; }
+    [SerializeField] public float _DangerMeter  { get; private set; }
     public bool _InDangerZone { get; set; }
     [SerializeField] private float _waitSeconds = 1f;
     [SerializeField] private float _dangerZoneTickingDamage = -5f;
@@ -12,7 +12,7 @@ public class PlayerStats : MonoBehaviour
     private Coroutine _tickingCoroutineReference;
 
     const string SAFEZONETAG = "SafeZone";
-    const float MAXDANGERMETER = 100f;
+    const float MAXDANGERMETER = 200f;
     public void DangerMeterChange(float dangermeterchange)
     {
         _DangerMeter += dangermeterchange;

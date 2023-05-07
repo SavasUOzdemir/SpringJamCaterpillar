@@ -36,27 +36,60 @@ public class MassChanger
             float oldMass = _rigidbody.mass;
             float newMass = _rigidbody.mass - Time.fixedDeltaTime / massReductionFactor;
             _playerCharacter.SetWeight(newMass);
-            DoScaleCalculation();
-            DoLightIntensityCalculation();
+
+            float desiredScale = CalculateScale();
+            SetPlayerScale(desiredScale);
+
+            float desiredLightIntensity = CalculateLightIntensity();
+            SetLightIntensity(desiredLightIntensity);
+
+            float desiredSpeed = CalculateSpeed();
+            _playerCharacter.SetSpeed(desiredSpeed);
 
             _consumabilityService.UpdateConsumability(_rigidbody, oldMass);
         }
     }   
 
-    private void DoScaleCalculation()
+    private float CalculateScale()
     {
         float targetScale = _rigidbody.mass / 30f > SCALE_MIN ? _rigidbody.mass / 30 : SCALE_MIN;
         float scaleFactor = (Mathf.Clamp(targetScale, SCALE_MIN, SCALE_MAX));
+
+        return scaleFactor;
+    }
+
+    private void SetPlayerScale(float scaleFactor)
+    {
         _playerCharacter.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
     }
 
-    private void DoLightIntensityCalculation()
+    private float CalculateLightIntensity()
     {
         float mass = _rigidbody.mass;
-        Light light = _playerCharacter.GetLight();
 
         float targetIntensity = mass / 10f < LIGHT_MAX ? mass/10f: LIGHT_MAX;
         float clampedIntensity = Mathf.Clamp(targetIntensity, LIGHT_MIN, LIGHT_MAX);
-        light.intensity = clampedIntensity;
+
+        return clampedIntensity;
+    }
+
+    private void SetLightIntensity(float newIntensity)
+    {
+        Light light = _playerCharacter.GetLight();
+        light.intensity = newIntensity;
+    }
+
+    private float CalculateSpeed()
+    {
+        float mass = _rigidbody.mass;
+        float massMax = PlayerCharacter.METAMORPHOSIS_THRESHOLD_WEIGHT;
+
+        float maxSpeed = 7;
+        float minSpeed = 4;
+
+        float desiredSpeed = maxSpeed - ((maxSpeed - minSpeed) * ((mass - 1) / (massMax - 1)));
+
+        return desiredSpeed;
     }
 }
+    
