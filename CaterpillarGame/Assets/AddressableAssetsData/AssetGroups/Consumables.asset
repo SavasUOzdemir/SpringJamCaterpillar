@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Consumables/Apple.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b84ac4c3aa949c64994725cb28d03d2d
+    m_Address: Consumables/Honey.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 98e4d1109a155df4abe01deb57cf02ef, type: 2}
   m_SchemaSet:

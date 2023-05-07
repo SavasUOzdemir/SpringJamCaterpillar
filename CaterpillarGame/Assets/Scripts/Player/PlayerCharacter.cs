@@ -2,7 +2,6 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
-
 public class PlayerCharacter : MonoBehaviour, IConsumer
 {
     [SerializeField] private Rigidbody _rigidbody;
