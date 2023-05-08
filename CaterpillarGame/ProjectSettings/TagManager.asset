@@ -10,6 +10,7 @@ TagManager:
   - lb_groundTarget
   - lb_perchTarget
   - VirtualCamera
+  - DirectionalLight
   layers:
   - Default
   - TransparentFX

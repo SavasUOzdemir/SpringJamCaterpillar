@@ -33,7 +33,8 @@ public class Bird : MonoBehaviour
 	float _speed = 20f;
 
 	[SerializeField] private bool _aggroToCharacter;
-	private const float KILL_DISTANCE = 5f;
+	private const float KILL_DISTANCE = .3f;
+	Light _directionalLight;
 
 	//public bool AggroToCharacter
 	//{
@@ -54,11 +55,10 @@ public class Bird : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-    }
+		_directionalLight = GameObject.FindGameObjectWithTag("DirectionalLight").GetComponent<Light>();
+	}
 
-	
-
-    public void SetAggroToCharacter(bool isAggro)
+	public void SetAggroToCharacter(bool isAggro)
 	{
 		_aggroToCharacter = isAggro;
 	}
@@ -76,39 +76,6 @@ public class Bird : MonoBehaviour
     {
 		FindObjectOfType<PlayerStats>().PlayerBelowThresholdEvent -= GetAggroToCharacter;
 	}
-	IEnumerator AttackCoroutine(Vector3 target)
-	{
-		Debug.Log(distanceToTarget + "1");
-
-		_patrolling = false;
-		distanceToTarget = (playerTransform.position - transform.position).magnitude;
-
-		while (playerTransform != null)
-		{
-			distanceToTarget = (playerTransform.position - transform.position).magnitude;
-			transform.forward = (playerTransform.position - transform.position).normalized;
-			yield return null;
-
-			if (distanceToTarget >= 10)
-			{
-				transform.forward = (playerTransform.position - transform.position).normalized;
-				transform.position += transform.forward * _speed * Time.deltaTime;
-			}
-
-			if (distanceToTarget < KILL_DISTANCE && _aggroToCharacter)
-			{
-				playerTransform.gameObject.GetComponent<PlayerStats>().SendMessage("Die");
-				_aggroToCharacter = false;
-				yield break;
-			}
-			else
-			{
-				_patrolling = true;
-				yield break;
-			}
-		}
-
-	}
 
 	private void Start()
 	{
@@ -123,11 +90,22 @@ public class Bird : MonoBehaviour
 		Move();
 		if(!_aggroToCharacter)
         {
+            if (Time.timeScale!=1)
+				Time.timeScale = 1;
+			FindObjectOfType<PlayerCharacter>().freeLookVirtualCam.LookAt = playerTransform;
 			_patrolling = true;
+			_directionalLight.intensity = .75f;
 			return;
         }
+		if (Vector3.Distance(playerTransform.position, transform.position) < 30 * KILL_DISTANCE && _aggroToCharacter)
+		{
+			Time.timeScale = 0.25f;
+			FindObjectOfType<PlayerCharacter>().freeLookVirtualCam.LookAt = transform;
+			FindObjectOfType<PlayerCharacter>().freeLookVirtualCam.Follow = transform;
+			_directionalLight.intensity += Time.deltaTime;
+		}
 
-        if (Vector3.Distance(playerTransform.position,transform.position)< KILL_DISTANCE && _aggroToCharacter)
+		if (Vector3.Distance(playerTransform.position,transform.position)< KILL_DISTANCE && _aggroToCharacter)
         {
 			FindObjectOfType<PlayerStats>().PlayerBelowThresholdEvent -= GetAggroToCharacter;
 			playerTransform.gameObject.GetComponent<PlayerStats>().SendMessage("Die");

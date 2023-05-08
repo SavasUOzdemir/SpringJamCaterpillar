@@ -15,7 +15,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     [SerializeField] private CharacterController _controller;
     [SerializeField] private Transform _camera;
-    [SerializeField] private CinemachineFreeLook freeLookVirtualCam;
+    [SerializeField] public CinemachineFreeLook freeLookVirtualCam;
 
     private bool _axisRecenteringEnableCoroutineRunning;
 
