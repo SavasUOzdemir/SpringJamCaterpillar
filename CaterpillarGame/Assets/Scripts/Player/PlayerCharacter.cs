@@ -37,6 +37,9 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 150;
 
+    public delegate void OnWinDelegate();
+    public event OnWinDelegate OnWin;
+
     public PlayerState State { get; private set; }
 
     private void Awake()
@@ -73,13 +76,21 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         if(newWeight > METAMORPHOSIS_THRESHOLD_WEIGHT)
         {
             BecomeButterfly();
+            StartCoroutine(WinCoroutine());
         }
         else
         {
             _rigidbody.mass = newWeight;
         }
     }
+    IEnumerator WinCoroutine()
+    {
+        Time.timeScale = 0.1f;
+        yield return new WaitForSecondsRealtime(1f);
+        OnWin?.Invoke();
+        Time.timeScale = 0;
 
+    }
     public void SetSpeed(float newSpeed)
     {
         _speed = newSpeed;

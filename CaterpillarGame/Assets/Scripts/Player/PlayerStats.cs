@@ -4,42 +4,56 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] public float _DangerMeter  { get; private set; }
+    [field: SerializeField] public float _DangerMeter  { get; private set; }
     public bool _InDangerZone { get; set; }
     [SerializeField] private float _waitSeconds = 1f;
-    [SerializeField] private float _dangerZoneTickingDamage = -5f;
-    [SerializeField] private float _safeZoneTickingHeal = 2.5f;
+    [SerializeField] private float _dangerZoneTickingDamage = 15f;
+    [SerializeField] private float _safeZoneTickingHeal = -5f;
     private Coroutine _tickingCoroutineReference;
     [SerializeField] private Light _light;
     [SerializeField] GameObject safeZoneObject;
     const string SAFEZONETAG = "SafeZone";
-    const float MAXDANGERMETER = 200f;
+    const float MAXDANGERMETER = 150f;
+    public delegate void PlayerBelowThreshold(bool isTrue);
+    public event PlayerBelowThreshold PlayerBelowThresholdEvent;
+
+    public delegate void PlayerDeath();
+    public event PlayerDeath PlayerDeathEvent;
     public void DangerMeterChange(float dangermeterchange)
     {
         _DangerMeter += dangermeterchange;
         if (_DangerMeter > MAXDANGERMETER)
             _DangerMeter = MAXDANGERMETER;
-        if (_DangerMeter <= 0.05f)
-            Die();
-        else return;
+        if (_DangerMeter <0.05f)
+            _DangerMeter = 0;
+        if (MAXDANGERMETER - _DangerMeter <= 0.05f)
+            PlayerBelowThresholdEvent?.Invoke(true);
+        else
+            PlayerBelowThresholdEvent?.Invoke(false);
     }
 
     private void FixedUpdate()
     {
-        if (_light.intensity > .7f)
+        if (_light.intensity > .4f)
             safeZoneObject.SetActive(true);
-        else safeZoneObject.SetActive(false);
+        else 
+        { 
+            safeZoneObject.SetActive(false);
+            _InDangerZone = true;
+        }
     }
 
     private void Start()
     {
-        _InDangerZone = true;
+        _InDangerZone = false;
         _DangerMeter = 0f;
         _tickingCoroutineReference = StartCoroutine(DamageTick());
     }
 
     private void Die()
     {
+        Time.timeScale = 0f;
+        PlayerDeathEvent?.Invoke();
         //some logic for antagonist to lock onto target and swoop in
         //animator.play("die");
      //   StartCoroutine(DeathTimer(.5f));
@@ -74,6 +88,7 @@ public class PlayerStats : MonoBehaviour
             { 
                 yield return new WaitForSeconds(_waitSeconds);
                 DangerMeterChange(_safeZoneTickingHeal);
+                Debug.Log("healed by " + -_safeZoneTickingHeal);
             }
             yield return new WaitForSeconds(_waitSeconds);
             DangerMeterChange(_dangerZoneTickingDamage);

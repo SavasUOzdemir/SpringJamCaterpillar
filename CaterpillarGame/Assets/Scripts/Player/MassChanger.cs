@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class MassChanger
 {
-    private float massReductionFactor = 1f;
+    private float massReductionFactor = .4f;
 
     const float LIGHT_MAX = 2.1f;
-    const float LIGHT_MIN = 0.5f;
-    const float SCALE_MAX = 1.5f;
+    const float LIGHT_MIN = 0.3f;
+    const float SCALE_MAX = 3f;
     const float SCALE_MIN = 0.6f;
 
     private PlayerCharacter _playerCharacter;
@@ -67,7 +67,7 @@ public class MassChanger
     {
         float mass = _rigidbody.mass;
 
-        float targetIntensity = mass / 10f < LIGHT_MAX ? mass/10f: LIGHT_MAX;
+        float targetIntensity = mass / 13f < LIGHT_MAX ? mass/13f: LIGHT_MAX;
         float clampedIntensity = Mathf.Clamp(targetIntensity, LIGHT_MIN, LIGHT_MAX);
 
         return clampedIntensity;
