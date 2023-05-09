@@ -9,7 +9,8 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     [SerializeField] private GameObject _caterpillarMesh;
     [SerializeField] private GameObject _butterflyMesh;
-    
+
+
     private IEnumerator _massChangeCoroutine;
     private MassChanger _massChanger;
 
@@ -95,7 +96,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     {
         _speed = newSpeed;
     }
-
+    
     private void BecomeButterfly()
     {
         State = PlayerState.Butterfly;

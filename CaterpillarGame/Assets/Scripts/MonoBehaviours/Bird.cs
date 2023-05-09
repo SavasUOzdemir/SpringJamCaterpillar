@@ -74,7 +74,14 @@ public class Bird : MonoBehaviour
 
     private void OnDisable()
     {
-		FindObjectOfType<PlayerStats>().PlayerBelowThresholdEvent -= GetAggroToCharacter;
+        try
+        {
+			FindObjectOfType<PlayerStats>().PlayerBelowThresholdEvent -= GetAggroToCharacter;
+        }
+        catch (System.Exception)
+        {
+
+        }
 	}
 
 	private void Start()
