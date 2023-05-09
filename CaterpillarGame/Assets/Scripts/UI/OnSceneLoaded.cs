@@ -18,6 +18,8 @@ public class OnSceneLoaded : MonoBehaviour
     {
         _gothMothSound.PlayDelayed(.7f);
         _music.PlayDelayed(2f);
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void OnEnable()

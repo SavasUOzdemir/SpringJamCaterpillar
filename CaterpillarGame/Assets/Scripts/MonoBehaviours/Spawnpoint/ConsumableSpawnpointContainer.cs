@@ -8,14 +8,13 @@ public class ConsumableSpawnpointContainer : MonoBehaviour
 
     private void Awake()
     {
-        _consumableSpawnpoints.Clear();
-        foreach (var item in GetComponentsInChildren<ConsumableSpawnpoint>())
-        {
-            _consumableSpawnpoints.Add(item);
-        }
+
     }
     public void Start()
     {
+        _consumableSpawnpoints.Clear();
+        foreach (var item in GetComponentsInChildren<ConsumableSpawnpoint>())
+            _consumableSpawnpoints.Add(item);
         for (int i = 0; i < _consumableSpawnpoints.Count; i++)
         {
             _consumableSpawnpoints[i].Setup();

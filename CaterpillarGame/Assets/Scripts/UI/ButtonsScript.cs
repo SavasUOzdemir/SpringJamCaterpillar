@@ -3,16 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class ButtonsScript : MonoBehaviour
 {
-    GameObject _panelGameObject;
+    [SerializeField]GameObject _panelGameObject;
 
-    private void Awake()
-    {
-        _panelGameObject = FindObjectOfType<Canvas>().transform.GetChild(0).gameObject;
-    }
 
     private void Start()
     {
-        _panelGameObject.SetActive(false);
+        if (_panelGameObject == null)
+            return;
+        if (_panelGameObject.activeSelf)
+            _panelGameObject.SetActive(false);
     }
 
     public void PlayButtonPress()
@@ -39,6 +38,10 @@ public class ButtonsScript : MonoBehaviour
 
     public void PauseMenuHandler()
     {
+        if (SceneManager.GetActiveScene().buildIndex!=1)
+        {
+            return;
+        }
         if (!_panelGameObject.activeSelf)
         {
             _panelGameObject.SetActive(true);
