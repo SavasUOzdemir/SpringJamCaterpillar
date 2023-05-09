@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ConsumableSpawningService : IGameService
 {
-    private static List<ConsumableSpawnpoint> _consumableSpawnpoints = new List<ConsumableSpawnpoint>();
+    private List<ConsumableSpawnpoint> _consumableSpawnpoints = new List<ConsumableSpawnpoint>();
 
     private const float RESPAWN_INTERFAL = 12f;
 

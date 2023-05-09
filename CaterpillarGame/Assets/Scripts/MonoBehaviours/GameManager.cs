@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        ConsumableSpawningService consumableSpawningService = new ConsumableSpawningService();
+        ConsumableSpawningService consumableSpawningService = ServiceLocator.Instance.Get<ConsumableSpawningService>();
         StartCoroutine(consumableSpawningService.ReplenishConsumablesCoroutine());
     }
 
