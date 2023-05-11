@@ -8,9 +8,8 @@ public class EventHandler : MonoBehaviour
     {
         try
         {
-        FindObjectOfType<PlayerStats>().PlayerDeathEvent += ActivatePanel;
-        FindObjectOfType<PlayerCharacter>().OnWin += ActivateWinPanel;
-
+            FindObjectOfType<PlayerStats>().PlayerDeathEvent += ActivatePanel;
+            FindObjectOfType<PlayerCharacter>().OnWin += ActivateWinPanel;
         }
         catch (System.Exception)
         {
@@ -21,9 +20,8 @@ public class EventHandler : MonoBehaviour
     {
         try
         {
-        FindObjectOfType<PlayerStats>().PlayerDeathEvent -= ActivatePanel;
-        FindObjectOfType<PlayerCharacter>().OnWin -= ActivateWinPanel;
-
+            FindObjectOfType<PlayerStats>().PlayerDeathEvent -= ActivatePanel;
+            FindObjectOfType<PlayerCharacter>().OnWin -= ActivateWinPanel;
         }
         catch (System.Exception)
         {
@@ -35,6 +33,7 @@ public class EventHandler : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
     }
+
     void ActivateWinPanel()
     {
         transform.GetChild(1).gameObject.SetActive(true);

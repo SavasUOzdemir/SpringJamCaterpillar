@@ -88,7 +88,6 @@ public class PlayerStats : MonoBehaviour
             { 
                 yield return new WaitForSeconds(_waitSeconds);
                 DangerMeterChange(_safeZoneTickingHeal);
-                Debug.Log("healed by " + -_safeZoneTickingHeal);
             }
             yield return new WaitForSeconds(_waitSeconds);
             DangerMeterChange(_dangerZoneTickingDamage);
