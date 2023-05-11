@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
         ServiceLocator.Instance.Register<ConsumerService>(new ConsumerService());
         ServiceLocator.Instance.Register<ConsumabilityService>(new ConsumabilityService());
         ServiceLocator.Instance.Register<ConsumableSpawningService>(new ConsumableSpawningService());
+        ServiceLocator.Instance.Register<AudioPlaybackService>(new AudioPlaybackService());
     }
 
     public void Start()
