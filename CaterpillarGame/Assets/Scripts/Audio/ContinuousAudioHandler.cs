@@ -1,30 +1,29 @@
 using System.Collections;
 using UnityEngine;
 
-public class ContinuousAudioHandler
+public class ContinuousAudioHandler : IAudioHandler
 {
-    public AudioSource _audioSource { get; private set; }
-    public AudioClip _currentClip { get; private set; }
-    public AudioClip[] _clips { get; private set; }
-    public int _currentClipIndex { get; private set; } = -1;
-    private bool _isPlayingAudio = false;
+    public AudioSource AudioSource { get; private set; }
+    public AudioClip CurrentClip { get; private set; }
+    public AudioClip[] Clips { get; private set; }
+    public int CurrentClipIndex { get; private set; } = -1;
 
     public ContinuousAudioHandler(AudioSource audioSource, AudioClip[] clips)
     {
-        _audioSource = audioSource;
-        _clips = clips;
+        AudioSource = audioSource;
+        Clips = clips;
     }
 
     public void Stop()
     {
-        _audioSource.Stop();
+        AudioSource.Stop();
     }
 
-    public void Play(int clipIndex)
+    public void Play()
     {
-        _currentClip = _clips[clipIndex];
-        _audioSource.clip = _currentClip;
-        _audioSource.Play();
+        CurrentClip = Clips[CurrentClipIndex];
+        AudioSource.clip = CurrentClip;
+        AudioSource.Play();
     }
 
     public IEnumerator ContinuousRandomClipsCoroutine()
@@ -32,11 +31,11 @@ public class ContinuousAudioHandler
         while (true)
         {
             yield return null;
-            if (_audioSource.isPlaying == false)
+            if (AudioSource.isPlaying == false)
             {
-                int currentClipIndex = _currentClipIndex;
-                int newClipIndex = PickRandomClip(_clips, currentClipIndex);
-                Play(newClipIndex);
+                int currentClipIndex = CurrentClipIndex;
+                CurrentClipIndex = PickRandomClip(Clips, currentClipIndex);
+                Play();
             }
         }
     }
