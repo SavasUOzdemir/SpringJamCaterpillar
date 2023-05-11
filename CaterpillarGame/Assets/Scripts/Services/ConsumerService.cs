@@ -20,7 +20,10 @@ public class ConsumerService : IGameService
         float massRegen = consumable.GetMassRegen();
 
         // play effects here
+        AudioPlaybackService audioPlaybackService = ServiceLocator.Instance.Get<AudioPlaybackService>();
+        audioPlaybackService.PlaySingleShot(AudioType.PlayerEating);
 
+        // set weight
         consumer.SetWeight(rigidBody.mass += massRegen);
 
         ConsumabilityService consumabilityService = ServiceLocator.Instance.Get<ConsumabilityService>();
