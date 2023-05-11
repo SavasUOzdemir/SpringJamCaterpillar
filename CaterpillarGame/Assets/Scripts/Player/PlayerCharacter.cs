@@ -36,16 +36,18 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     private float turnSmoothVelocity;
     [SerializeField] private float turnSmoothTime = 0.1f;
 
-    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 150;
+    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 200;
 
     public delegate void OnWinDelegate();
     public event OnWinDelegate OnWin;
 
+    Animator anim;
     public PlayerState State { get; private set; }
 
     private void Awake()
     {
         State = PlayerState.CaterPillar;
+        anim=GetComponent<Animator>();
     }
 
     private void Update()
@@ -149,6 +151,8 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
         if (direction.magnitude >= 0.1f)
         {
+            if (_isGrounded)
+                anim.SetBool("Move", true);
             freeLookVirtualCam.m_YAxisRecentering.m_enabled = false;
             freeLookVirtualCam.m_RecenterToTargetHeading.m_enabled = false;
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
@@ -169,6 +173,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         }
         else
         {
+            anim.SetBool("Move", false);
             _delayReposition = false;
 
             if (_massChanger.IsCalculating)

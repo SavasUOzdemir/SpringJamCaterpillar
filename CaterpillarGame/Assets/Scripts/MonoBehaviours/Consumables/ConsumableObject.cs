@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ConsumableObject : MonoBehaviour, IConsumable
 {
-    private float massRegen = 15f;
+    [SerializeField] private float massRegen = 15f;
     [SerializeField] private ConsumableType _consumableType;
     [SerializeField] private Collider _collder;
     private ConsumabilityService _consumabilityService;

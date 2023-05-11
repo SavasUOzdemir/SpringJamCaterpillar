@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2b905b4ef4101438895994b7830755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  massRegen: 20
   _consumableType: 0
   _collder: {fileID: 2342396868835623739}
 --- !u!1001 &7087482348658318113

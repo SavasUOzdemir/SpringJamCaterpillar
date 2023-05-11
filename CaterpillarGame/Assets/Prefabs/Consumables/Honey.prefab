@@ -51,7 +51,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2342396868835623738}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2b905b4ef4101438895994b7830755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _consumableType: 1
+  massRegen: 75
+  _consumableType: 2
   _collder: {fileID: 3721567723247581383}
 --- !u!65 &3721567723247581383
 BoxCollider:

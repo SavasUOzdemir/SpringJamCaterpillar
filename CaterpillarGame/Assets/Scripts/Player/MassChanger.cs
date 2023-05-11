@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MassChanger
 {
-    private float massReductionFactor = .4f;
+    private float massReductionFactor = .3f;
 
     const float LIGHT_MAX = 2.1f;
     const float LIGHT_MIN = 0.3f;
@@ -47,6 +47,7 @@ public class MassChanger
             _playerCharacter.SetSpeed(desiredSpeed);
 
             _consumabilityService.UpdateConsumability(_rigidbody, oldMass);
+            massReductionFactor = Mathf.Lerp(massReductionFactor, (10 / newMass), Time.fixedDeltaTime);
         }
     }   
 
