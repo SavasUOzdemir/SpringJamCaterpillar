@@ -940,6 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de6dd5edd74ab941bd1aa46914fd536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioSourceContainerPrefab: {fileID: 3432945926736630811, guid: def67eafd6bfea04a833167668c4a736, type: 3}
 --- !u!4 &316213904
 Transform:
   m_ObjectHideFlags: 0
