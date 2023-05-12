@@ -2,7 +2,7 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerCharacter : MonoBehaviour, IConsumer
+public class PlayerCharacter : MonoBehaviour, IConsumer, IMonoBehaviourSingleton
 {
     [SerializeField] private Rigidbody _rigidbody;
     [SerializeField] private Light _light;
@@ -10,7 +10,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     [SerializeField] private GameObject _caterpillarMesh;
     [SerializeField] private GameObject _butterflyMesh;
 
-
+    private IEnumerator _walkingSoundRoutine;
     private IEnumerator _massChangeCoroutine;
     private MassChanger _massChanger;
 
@@ -28,6 +28,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
 
     private bool _isGrounded;
     private bool _delayReposition;
+    private bool _isMoving;
 
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
@@ -41,19 +42,34 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     public delegate void OnWinDelegate();
     public event OnWinDelegate OnWin;
 
-    Animator anim;
+    private Animator _animator;
+
+    private AudioPlaybackService _audioPlaybackService;
+
     public PlayerState State { get; private set; }
 
-    private void Awake()
+    public void Awake()
     {
         State = PlayerState.CaterPillar;
-        anim=GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+
+        MonoBehaviourLocator.Instance.Register<PlayerCharacter>(this);
+    }
+
+    public void Start()
+    {
+        _audioPlaybackService = ServiceLocator.Instance.Get<AudioPlaybackService>();
+        _walkingSoundRoutine = _audioPlaybackService.GetPlayerMovementAudioCoroutine();
+
+        _massChanger = new MassChanger(this);
+        _massChangeCoroutine = _massChanger.MassChangeCoroutine();
     }
 
     private void Update()
     {
         if (OnCanvasEnableDisable._GamePaused)
             return;
+
         HandleJumpInput();
 
         //gravity
@@ -61,12 +77,6 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         _controller.Move(_velocity * Time.deltaTime);
 
         HandleMovementInput();
-    }
-
-    public void Start()
-    {
-        _massChanger = new MassChanger(this);
-        _massChangeCoroutine = _massChanger.MassChangeCoroutine();
     }
 
     public void SetWeight(float newWeight)
@@ -128,7 +138,25 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
     {
         if (State == PlayerState.Butterfly) return;
 
-        _isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        bool isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (isGrounded && !_isGrounded) // we land
+        {
+            if (_isMoving)
+            {
+                StartCoroutine(_walkingSoundRoutine);
+            }
+        }
+        if(!isGrounded && _isGrounded) // we take off
+        {
+            if (_isMoving)
+            {
+                _audioPlaybackService.StopAudio(AudioType.PlayerWalking);
+                StopCoroutine(_walkingSoundRoutine);
+            }
+        }
+
+        _isGrounded = isGrounded;
 
         if (_isGrounded && _velocity.y < 0)
         {
@@ -152,7 +180,14 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         if (direction.magnitude >= 0.1f)
         {
             if (_isGrounded)
-                anim.SetBool("Move", true);
+                _animator.SetBool("Move", true);
+
+            if(_isMoving == false && _isGrounded)
+            {
+                _isMoving = true;
+                StartCoroutine(_walkingSoundRoutine);
+            }
+
             freeLookVirtualCam.m_YAxisRecentering.m_enabled = false;
             freeLookVirtualCam.m_RecenterToTargetHeading.m_enabled = false;
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
@@ -173,7 +208,14 @@ public class PlayerCharacter : MonoBehaviour, IConsumer
         }
         else
         {
-            anim.SetBool("Move", false);
+            if (_isMoving)
+            {
+                _animator.SetBool("Move", false);
+                _isMoving = false;
+                _audioPlaybackService.StopAudio(AudioType.PlayerWalking);
+                StopCoroutine(_walkingSoundRoutine);
+            }
+
             _delayReposition = false;
 
             if (_massChanger.IsCalculating)

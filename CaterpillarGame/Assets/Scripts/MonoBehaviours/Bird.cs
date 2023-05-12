@@ -36,20 +36,6 @@ public class Bird : MonoBehaviour
 	private const float KILL_DISTANCE = .3f;
 	Light _directionalLight;
 
-	//public bool AggroToCharacter
-	//{
-	//	get { return _aggroToCharacter; }
-	//	set
-	//	{
-	//		_aggroToCharacter = value;
-	//		Debug.Log($"we want to change AggroToCharacter {_aggroToCharacter}");
-	//		//if (_aggroToCharacter == true)
-	//		//	_patrolling = false;
-	//		//else
-	//		//	_patrolling = true;
-	//	}
-	//}
-
 	private bool _patrolling = true;
 
     private void Awake()
