@@ -37,10 +37,12 @@ public class PlayerCharacter : MonoBehaviour, IConsumer, IMonoBehaviourSingleton
     private float turnSmoothVelocity;
     [SerializeField] private float turnSmoothTime = 0.1f;
 
-    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 150;
+    public const float METAMORPHOSIS_THRESHOLD_WEIGHT = 200;
 
     public delegate void OnWinDelegate();
     public event OnWinDelegate OnWin;
+
+    private Animator _animator;
 
     private AudioPlaybackService _audioPlaybackService;
 
@@ -49,6 +51,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer, IMonoBehaviourSingleton
     public void Awake()
     {
         State = PlayerState.CaterPillar;
+        _animator = GetComponent<Animator>();
 
         MonoBehaviourLocator.Instance.Register<PlayerCharacter>(this);
     }
@@ -176,6 +179,9 @@ public class PlayerCharacter : MonoBehaviour, IConsumer, IMonoBehaviourSingleton
 
         if (direction.magnitude >= 0.1f)
         {
+            if (_isGrounded)
+                _animator.SetBool("Move", true);
+
             if(_isMoving == false && _isGrounded)
             {
                 _isMoving = true;
@@ -204,6 +210,7 @@ public class PlayerCharacter : MonoBehaviour, IConsumer, IMonoBehaviourSingleton
         {
             if (_isMoving)
             {
+                _animator.SetBool("Move", false);
                 _isMoving = false;
                 _audioPlaybackService.StopAudio(AudioType.PlayerWalking);
                 StopCoroutine(_walkingSoundRoutine);

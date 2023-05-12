@@ -72,6 +72,13 @@ public class ConsumabilityService : IGameService
                 _consumablesByLevel[MassThreshold3][i].SetIsTriggered(true);
             }
         }
+        if (oldMass < MassThreshold4 && newMass > MassThreshold4)
+        {
+            for (int i = 0; i < _consumablesByLevel[MassThreshold4].Count; i++)
+            {
+                _consumablesByLevel[MassThreshold4][i].SetIsTriggered(true);
+            }
+        }
     }
 
     private void CheckForDecreasingMass(float oldMass, float newMass)
@@ -90,6 +97,14 @@ public class ConsumabilityService : IGameService
             for (int i = 0; i < _consumablesByLevel[MassThreshold3].Count; i++)
             {
                 _consumablesByLevel[MassThreshold3][i].SetIsTriggered(false);
+            }
+        }
+        // lock level 4
+        if (oldMass > MassThreshold4 && newMass < MassThreshold4)
+        {
+            for (int i = 0; i < _consumablesByLevel[MassThreshold4].Count; i++)
+            {
+                _consumablesByLevel[MassThreshold4][i].SetIsTriggered(false);
             }
         }
     }
