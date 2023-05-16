@@ -37,10 +37,6 @@ MonoBehaviour:
     m_Address: Assets/Scenes/GameScene/Global Volume Profile.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 375b470baacdae546842b5a097e94c51
-    m_Address: Assets/Scenes/GameScene/Global Volume Profile 1.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 98e4d1109a155df4abe01deb57cf02ef, type: 2}
   m_SchemaSet:
